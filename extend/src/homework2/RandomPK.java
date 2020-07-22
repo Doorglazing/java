@@ -6,14 +6,14 @@ import java.util.Random;
 public class RandomPK {
     public static void main(String[] args) {
         ArrayList<String> list = new ArrayList<>();
-        list = randomP(3);
+        list = randomP(5);
         for (int i = 0; i < list.size(); i++) {
             System.out.print(list.get(i)+" ");
         }
     }
     public static ArrayList<String> randomP(int n){
         ArrayList<String> list2 = new ArrayList<>();
-        if(n > 52){
+        if(n > 54){
             list2.add("超越范围，无法获取");
             return list2;
         }
@@ -33,7 +33,7 @@ public class RandomPK {
         //最大牌数
         System.out.println("随机"+ n +"张牌");
         for (int i = 0; i < n; i++) {
-            list3.add(list2.remove(random.nextInt(x + 1)));
+            list3.add(list2.remove(random.nextInt(x)));
             x--;
         }
         return list3;

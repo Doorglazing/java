@@ -7,7 +7,7 @@ public class test {
         myList.add(2);
         myList.add(3);
         myList.show();
-        myList.remove(2);
+        myList.remove(3);
         myList.show();
     }
 }

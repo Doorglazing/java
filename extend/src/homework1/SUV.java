@@ -14,8 +14,11 @@ public class SUV extends Auto {
 
     void judge(){
         double carL = super.getCarLength();
-        System.out.println("车型：" + (carL > smallCar ? (carL > midCar ? "大型SUV": "中型SUV") : "小型SUV" ));
-        System.out.println("    "+"价格：" + super.getPrice());
-        System.out.println("    "+"车长：" + carL);
+        if( (carL > smallCar ? (carL > midCar ? "大型SUV": "中型SUV") : "小型SUV" ) == "中型SUV"){
+            System.out.println("车型：SUV" );
+            System.out.println("    "+"价格：" + super.getPrice());
+            System.out.println("    "+"车长：" + carL);
+        }
+
     }
 }
