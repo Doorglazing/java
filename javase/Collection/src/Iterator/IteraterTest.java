@@ -16,7 +16,7 @@ public class IteraterTest {
             //执行next获取元素移动指针来到下一个元素之前
             String s = iterator.next();
             //返回迭代的下一个元素
-            System.out.println(s);
+//            System.out.println(s);
         }
     }
 }

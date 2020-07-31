@@ -10,7 +10,7 @@ import java.util.*;
  *      - 看牌
  *
  */
-public class Poker {
+public class Poker{
     public static void main(String[] args) {
         //准备牌
         List<String> pokerBox = new ArrayList<>();
