@@ -9,6 +9,7 @@ public class Bubble {
     }
 
     public static int[] bubble(int arr[]){
+        //冒泡排序
         int len = arr.length;
         int Max;
         for (int i = 0; i < len; i++) {

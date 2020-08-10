@@ -8,6 +8,7 @@ public class XuanZhe {
         System.out.println(Arrays.toString(xuanZhe(arr)));
     }
     public static int[] xuanZhe(int arr[]){
+        // 选择排序
         int len = arr.length;
         int Max = arr[0];
         int index = 0;
