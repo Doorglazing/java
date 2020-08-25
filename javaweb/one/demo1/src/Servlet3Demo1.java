@@ -1,12 +1,19 @@
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.Date;
+
 
 @WebServlet("/door")
 public class Servlet3Demo1 implements Servlet {
+
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
+        boolean j = true;
+        boolean i = true;
+        if(j=i){
 
+        }
     }
 
     @Override
@@ -28,4 +35,5 @@ public class Servlet3Demo1 implements Servlet {
     public void destroy() {
 
     }
+
 }
