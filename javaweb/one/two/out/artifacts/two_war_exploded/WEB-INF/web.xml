@@ -20,4 +20,12 @@
         <servlet-name>demo2</servlet-name>
         <url-pattern>/haha</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>demo3</servlet-name>
+        <servlet-class>com.servletdemo.ServletDemo3</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>demo3</servlet-name>
+        <url-pattern>/what</url-pattern>
+    </servlet-mapping>
 </web-app>
