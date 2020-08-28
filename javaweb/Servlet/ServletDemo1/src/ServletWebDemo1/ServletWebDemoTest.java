@@ -13,7 +13,7 @@ import java.util.Set;
 public class ServletWebDemoTest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+        this.doPost(req, resp);
     }
 
     @Override
@@ -29,6 +29,7 @@ public class ServletWebDemoTest extends HttpServlet {
                 System.out.println(string);
             }
         }
-        System.out.println(req.getAttribute("msg"));
+        Object msg = req.getAttribute("msg");
+        System.out.println(msg);
     }
 }
