@@ -10,7 +10,9 @@
 <head>
     <title>Title</title>
     <style>
-
+        div{
+            color: red;
+        }
     </style>
     <script>
         window.onload = function () {
@@ -23,24 +25,29 @@
 </head>
 <body>
     <table>
-        <tr>
-            <td>用户名</td>
-            <td><input type="text" name="username"></td>
-        </tr>
-        <tr>
-            <td>密码</td>
-            <td><input type="password" name="password"></td>
-        </tr>
-        <tr>
-            <td>验证码</td>
-            <td><input type="text" name="checkCode"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><img src="/checkCodeServlet" alt="" id="img"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="提交"></td>
-        </tr>
+        <form action="LoginServlet" method="post">
+            <tr>
+                <td>用户名</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td>验证码</td>
+                <td><input type="text" name="checkCode"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><img src="/checkCodeServlet" alt="" id="img"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="提交"></td>
+            </tr>
+        </form>
     </table>
+    <div><%= request.getAttribute("check_error") == null ? "" : request.getAttribute("check_error") %></div>
+    <div><%= request.getAttribute("user_error") == null ? "" : request.getAttribute("user_error") %></div>
+
 </body>
 </html>

@@ -37,15 +37,17 @@ public class CheckCodeServlet extends HttpServlet {
         String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz0123456789";
         // 随机选index
         Random random = new Random();
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= 4 ; i++) {
             int index = random.nextInt(str.length());
             // 获取字符
             char ch = str.charAt(index);
+            // sb拼接字符串
+            sb.append(ch);
             // 写验证码
             g.drawString(ch+"", width/5*i, height/2);
-
         }
+        req.getSession().setAttribute("check_code", sb.toString());
 
         // 画干扰线
         g.setColor(Color.GREEN);
