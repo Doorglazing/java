@@ -21,7 +21,7 @@ public class CheckCodeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 图片验证码
-        int width = 300;
+        int width = 120;
         int height = 50;
         //1. 创建一个 图片验证码对象
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
