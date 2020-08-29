@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<p>恭喜<%= request.getSession().getAttribute("user") %>登录成功</p>
+<p>恭喜<%= request.getSession().getAttribute("success_user") %>登录成功</p>
 success
 </body>
 </html>
