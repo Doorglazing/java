@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2020/8/30
+  Time: 13:44
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -39,7 +46,7 @@
         }
         .wrapper form div .btn{
             height: 35px;
-            width: 100px;
+            width: 200px;
             float: right;
             margin-right: 4px;
         }
@@ -63,7 +70,7 @@
 <body>
 <div class="wrapper">
     <div>
-        <form action="/loginServlet1" method="post">
+        <form action="/registerDemo" method="post">
             <div>
                 <span>用户名</span><input type="text" name="username">
             </div>
@@ -75,11 +82,10 @@
                 <img src="/checkCodeServlet" alt="" id="img">
             </div>
             <div class="btn1">
-                <input class="btn" type="button" value="注册" id="register">
-                <input class="btn" type="submit" value="登录">
+                <input class="btn" type="submit" value="确定注册">
             </div>
-            <div class="font"><%= request.getAttribute("check_error") == null ? "" : request.getAttribute("check_error") %></div>
-            <div class="font"><%= request.getAttribute("login_error") == null ? "" : request.getAttribute("login_error") %></div>
+            <div class="font"><%= request.getSession().getAttribute("rg_error") == null? "" : request.getSession().getAttribute("rg_error") %></div>
+            <div class="font"><%= request.getAttribute("check_error") == null? "" : request.getAttribute("check_error") %></div>
         </form>
     </div>
 </div>
@@ -87,10 +93,6 @@
     var img = document.querySelector("#img");
     img.onclick = function () {
         this.src = "/checkCodeServlet?name=" + new Date().getTime();
-    }
-    var rg = document.querySelector("#register");
-    rg.onclick = function () {
-        window.location = "/Register.jsp";
     }
 </script>
 </body>

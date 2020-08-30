@@ -63,7 +63,7 @@
 <body>
 <div class="wrapper">
     <div>
-        <form action="loginServlet1" method="post">
+        <form action="/loginServlet1" method="post">
             <div>
                 <span>用户名</span><input type="text" name="username">
             </div>
@@ -75,7 +75,7 @@
                 <img src="/checkCodeServlet" alt="" id="img">
             </div>
             <div class="btn1">
-                <input class="btn" type="button" value="注册">
+                <input class="btn" type="button" value="注册" id="register">
                 <input class="btn" type="submit" value="登录">
             </div>
             <div class="font"><%= request.getAttribute("check_error") == null ? "" : request.getAttribute("check_error") %></div>
@@ -87,6 +87,10 @@
     var img = document.querySelector("#img");
     img.onclick = function () {
         this.src = "/checkCodeServlet?name=" + new Date().getTime();
+    }
+    var rg = document.querySelector("#register");
+    rg.onclick = function () {
+        window.location = "/Register.jsp";
     }
 </script>
 </body>

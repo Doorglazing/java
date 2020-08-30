@@ -1,5 +1,6 @@
 package LoginDemo.Utils;
 
+
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import javax.sql.DataSource;
@@ -37,7 +38,7 @@ public final class JDBCUtils {
     /**
      * 获取连接
      */
-    public static Connection getConnection() throws SQLException{
+    public static Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
     /**
@@ -47,7 +48,7 @@ public final class JDBCUtils {
         close(null, statement, conn);
     }
 
-    public static void close(ResultSet rs,Statement statement, Connection conn){
+    public static void close(ResultSet rs, Statement statement, Connection conn){
         // 释放资源
         if(statement != null){
             try {

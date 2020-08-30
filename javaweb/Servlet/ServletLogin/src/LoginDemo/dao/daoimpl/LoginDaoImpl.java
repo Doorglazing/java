@@ -13,25 +13,26 @@ public class LoginDaoImpl implements Login {
     private Connection conn = null;
     private PreparedStatement pst = null;
     private ResultSet rs = null;
-    User user = null;
+    private User use1 = null;
     @Override
     public User loginServlet(User user) {
-        String sql = "select * from userLogin1 where username = ? and password = ?";
         try{
             conn = JDBCUtils.getConnection();
-            System.out.println(conn);
+            String sql = "select * from userlogin1 where username = ? and password = ?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, user.getUsername());
             pst.setString(2, user.getPassword());
             rs = pst.executeQuery();
             while (rs.next()){
-                user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
+                use1 = new User();
+                use1.setUsername(rs.getString("username"));
+                use1.setPassword(rs.getString("password"));
             }
         }catch (SQLException e){
             e.printStackTrace();
+        }finally {
+            JDBCUtils.close(rs, pst, conn);
         }
-        return user;
+        return use1;
     }
 }
