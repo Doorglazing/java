@@ -11,4 +11,12 @@ import java.util.List;
 public interface UserService {
     // 查询所有用户信息
     List<User> findAll();
+
+    void add(User user);
+
+    void delete(String id);
+
+    void update(User user);
+
+    User findUserById(String id);
 }
