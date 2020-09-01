@@ -40,7 +40,7 @@
     <form action="${pageContext.request.contextPath}/loginServlet" method="post">
         <div class="form-group">
             <label for="user">用户名：</label>
-            <input type="text" name="user" class="form-control" id="user" placeholder="请输入用户名"/>
+            <input type="text" name="username" class="form-control" id="user" placeholder="请输入用户名"/>
         </div>
 
         <div class="form-group">
@@ -63,7 +63,7 @@
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" >
             <span>&times;</span></button>
-        <strong>登录失败!</strong>
+        <strong>${requestScope.user_error}</strong>
     </div>
 </div>
 </body>

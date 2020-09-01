@@ -19,4 +19,6 @@ public interface UserService {
     void update(User user);
 
     User findUserById(String id);
+
+    User login(User user);
 }

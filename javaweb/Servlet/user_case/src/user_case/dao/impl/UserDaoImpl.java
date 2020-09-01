@@ -43,4 +43,16 @@ public class UserDaoImpl implements UserDao {
         String sql = "select * from user where id = ?";
         return template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), id);
     }
+
+    @Override
+    public User login(String username, String password) {
+        String sql = "select * from user where username = ? and password = ?";
+        User user = null;
+        try{
+             user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), username, password);
+        }catch (Exception e){
+            return null;
+        }
+        return user;
+    }
 }
