@@ -37,6 +37,33 @@
                 location.href="${pageContext.request.contextPath}/deleteServlet?id="+id;
             }
         }
+
+        window.onload = function () {
+            document.querySelector("#delSelected").onclick = function(){
+                var flag = false;
+                if(confirm("您确定要删除?")){
+                    var ads = document.getElementsByName("uid")
+                    for(var i = 0; i < ads.length; i++){
+                        if(ads[i].checked){
+                            flag = true;
+                        }
+                    }
+                    if(flag){
+                        document.querySelector("#form").submit();
+                    }
+                }
+
+            }
+
+
+            let firstCb = document.querySelector("#firstCb");
+            firstCb.onclick = function () {
+                var cds = document.getElementsByName("uid");
+                for (let i = 0; i < cds.length; i++) {
+                    cds[i].checked = this.checked;
+                }
+            }
+        }
     </script>
 </head>
 <body>
@@ -127,6 +154,9 @@
             </ul>
         </nav>
     </div>
+    <script>
+
+    </script>
 </div>
 </body>
 </html>
