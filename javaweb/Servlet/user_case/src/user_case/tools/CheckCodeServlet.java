@@ -11,57 +11,72 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * 验证码
+ */
 @WebServlet("/checkCodeServlet")
 public class CheckCodeServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doPost(req,resp);
-    }
+    public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 图片验证码
+        //服务器通知浏览器不要缓存
+        response.setHeader("pragma","no-cache");
+        response.setHeader("cache-control","no-cache");
+        response.setHeader("expires","0");
+
+        //在内存中创建一个长80，宽30的图片，默认黑色背景
+        //参数一：长
+        //参数二：宽
+        //参数三：颜色
         int width = 80;
         int height = 30;
-        //1. 创建一个 图片验证码对象
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
 
-        // 2.美化图片
-        Graphics g = image.getGraphics(); // 画笔对象
-        g.setColor(Color.PINK);
-        g.fillRect(0, 0, width, height);
+        //获取画笔
+        Graphics g = image.getGraphics();
+        //设置画笔颜色为灰色
+        g.setColor(Color.GRAY);
+        //填充图片
+        g.fillRect(0,0, width,height);
 
-        //画边框
-        g.setColor(Color.BLUE);
-        g.drawRect(0, 0, width-1, height-1);
-        String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz0123456789";
-        // 随机选index
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= 4 ; i++) {
-            int index = random.nextInt(str.length());
-            // 获取字符
-            char ch = str.charAt(index);
-            // 拼接字符串
-            sb.append(ch);
-            // 写验证码
-            g.drawString(ch+"", width/5*i, height/2);
+        //产生4个随机验证码，12Ey
+        String checkCode = getCheckCode();
+        //将验证码放入HttpSession中
+        request.getSession().setAttribute("CHECKCODE_SERVER",checkCode);
+
+        //设置画笔颜色为黄色
+        g.setColor(Color.YELLOW);
+        //设置字体的小大
+        g.setFont(new Font("黑体",Font.BOLD,24));
+        //向图片上写入验证码
+        g.drawString(checkCode,15,25);
+
+        //将内存中的图片输出到浏览器
+        //参数一：图片对象
+        //参数二：图片的格式，如PNG,JPG,GIF
+        //参数三：图片输出到哪里去
+        ImageIO.write(image,"PNG",response.getOutputStream());
+    }
+    /**
+     * 产生4位随机字符串
+     */
+    private String getCheckCode() {
+        String base = "0123456789ABCDEFGabcdefg";
+        int size = base.length();
+        Random r = new Random();
+        StringBuffer sb = new StringBuffer();
+        for(int i=1;i<=4;i++){
+            //产生0到size-1的随机值
+            int index = r.nextInt(size);
+            //在base字符串中获取下标为index的字符
+            char c = base.charAt(index);
+            //将c放入到StringBuffer中去
+            sb.append(c);
         }
-        // 将验证码存入session
-        req.getSession().setAttribute("check_code", sb.toString());
-
-        // 画干扰线
-        g.setColor(Color.GREEN);
-        // 随机生成坐标
-        for (int i = 0; i < 10; i++) {
-            int x1 = random.nextInt(width);
-            int x2 = random.nextInt(width);
-            int y1 = random.nextInt(height);
-            int y2 = random.nextInt(height);
-            g.drawLine(x1, y1, x2, y2);
-        }
-
-        // 将图片输出到页面中
-        ImageIO.write(image, "jpg", resp.getOutputStream());
+        return sb.toString();
+    }
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.doGet(request,response);
     }
 }
+
+
