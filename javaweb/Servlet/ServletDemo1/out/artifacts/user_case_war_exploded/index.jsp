@@ -18,6 +18,7 @@
 </head>
 <body>
 <div align="center">
+  <h3>${sessionScope.adminName}，欢迎登录</h3>
   <a
           href="/userListServlet" style="text-decoration:none;font-size:33px">查询所有用户信息
   </a>

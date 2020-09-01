@@ -5,6 +5,7 @@
   Time: 15:24
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -60,11 +61,13 @@
     </form>
 
     <!-- 出错显示的信息框 -->
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" >
-            <span>&times;</span></button>
-        <strong>${requestScope.user_error}</strong>
-    </div>
+    <c:if test="${requestScope.user_error != null}">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" >
+                <span>&times;</span></button>
+            <strong>${requestScope.user_error}</strong>
+        </div>
+    </c:if>
 </div>
 </body>
 </html>
