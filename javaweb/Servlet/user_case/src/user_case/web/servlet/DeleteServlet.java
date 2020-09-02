@@ -20,6 +20,6 @@ public class DeleteServlet extends HttpServlet {
         // 调用删除方法
         new UserServiceImpl().delete(req.getParameter("id"));
         // 重定向 刷新页面
-        resp.sendRedirect(req.getContextPath() + "/userListServlet");
+        resp.sendRedirect(req.getContextPath() + "/UserListPageServlet");
     }
 }

@@ -1,4 +1,4 @@
-
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -63,6 +63,16 @@
                     cds[i].checked = this.checked;
                 }
             }
+
+            var formControl = document.querySelectorAll(".form-control");
+            var submit = document.querySelector("#submit");
+            console.log(submit)
+            for (let i = 0; i < formControl.length; i++){
+                formControl[i].onblur = function () {
+                    submit.click();
+                }
+            }
+
         }
     </script>
 </head>
@@ -72,21 +82,21 @@
 
     <div style="float: left;">
 
-        <form class="form-inline" action="${pageContext.request.contextPath}/userListServlet" method="post">
+        <form class="form-inline" action="${pageContext.request.contextPath}/UserListPageServlet?rows=5" method="post">
             <div class="form-group">
                 <label for="exampleInputName2">姓名</label>
-                <input type="text" name="username" value="" class="form-control" id="exampleInputName2" >
+                <input type="text" name="name" value="${map.name[0]}" class="form-control" id="exampleInputName2" >
             </div>
             <div class="form-group">
                 <label for="exampleInputName3">籍贯</label>
-                <input type="text" name="address" value="" class="form-control" id="exampleInputName3" >
+                <input type="text" name="address" value="${map.address[0]}" class="form-control" id="exampleInputName3" >
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail2">邮箱</label>
-                <input type="text" name="email" value="" class="form-control" id="exampleInputEmail2"  >
+                <input type="text" name="email" value="${map.email[0]}" class="form-control" id="exampleInputEmail2"  >
             </div>
-            <button type="submit" class="btn btn-default">查询</button>
+            <button type="submit" class="btn btn-default" id="submit">查询</button>
         </form>
     </div>
 
@@ -109,10 +119,10 @@
                 <th>操作</th>
             </tr>
 
-            <c:forEach items="${users}" var="user" varStatus="s">
+            <c:forEach items="${requestScope.bp.list}" var="user" varStatus="s">
                 <tr>
                     <td><input type="checkbox" name="uid" value="${user.id}"></td>
-                    <td>${s.count}</td>
+                    <td>${s.count + (requestScope.bp.currentPage - 1)*requestScope.bp.rows}</td>
                     <td>${user.name}</td>
                     <td>${user.gender}</td>
                     <td>${user.age}</td>
@@ -131,31 +141,50 @@
     <div>
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
+                <c:if test="${requestScope.bp.currentPage == 1}">
+                    <li class="disabled">
+                </c:if>
+                 <c:if test="${requestScope.bp.currentPage != 1}">
+                     <li>
+                 </c:if>
+                    <a href="${pageContext.request.contextPath}/UserListPageServlet?currentPage=${bp.currentPage-1}&&rows=5" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
+                <c:forEach begin="1" end="${bp.pageCount}" var="i">
+                    <c:if test="${bp.currentPage == i}">
+                        <li class="active">
+                            <a href="${pageContext.request.contextPath}/UserListPageServlet?currentPage=${i}&rows=5&name=${map.name[0]}&address=${map.address[0]}&email=${map.email[0]}">${i}</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${bp.currentPage != i}">
+                        <li><a href="${pageContext.request.contextPath}/UserListPageServlet?currentPage=${i}&rows=5&name=${map.name[0]}&address=${map.address[0]}&email=${map.email[0]}">${i}</a></li>
+                    </c:if>
+                </c:forEach>
+
+                <c:if test="${requestScope.bp.currentPage == bp.pageCount}">
+                    <li class="disabled">
+                </c:if>
+                <c:if test="${requestScope.bp.currentPage != bp.pageCount}">
+                    <li>
+                </c:if>
                     <a href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
                 <span style="font-size: 25px;margin-left: 5px;">
-                    共16条记录，共4页
+                    共${bp.totalCount}条记录，共${bp.pageCount}页
                 </span>
 
             </ul>
         </nav>
     </div>
-    <script>
-
-    </script>
+    <%
+        HttpSession session1 = request.getSession();
+        session1.setAttribute("name", request.getParameter("name"));
+        session1.setAttribute("address", request.getParameter("address"));
+        session1.setAttribute("email", request.getParameter("email"));
+    %>
 </div>
 </body>
 </html>

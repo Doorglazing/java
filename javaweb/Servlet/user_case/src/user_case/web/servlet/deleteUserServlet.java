@@ -23,6 +23,6 @@ public class deleteUserServlet extends HttpServlet {
         // 获取uid
         String[] values = req.getParameterValues("uid");
         new UserServiceImpl().checkedDelete(values);
-        req.getRequestDispatcher(req.getContextPath()+"/userListServlet").forward(req, resp);
+        req.getRequestDispatcher(req.getContextPath()+"/UserListPageServlet").forward(req, resp);
     }
 }

@@ -6,13 +6,11 @@ import user_case.dao.UserDao;
 import user_case.domain.User;
 import user_case.util.JDBCUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class UserDaoImpl implements UserDao {
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+
     @Override
     public List<User> findAll() {
         String sql = "select * from user";
@@ -24,8 +22,8 @@ public class UserDaoImpl implements UserDao {
     public void add(User user) {
         String sql = "insert into user values (null, ?,?,?,?,?,?, null, null)";
         template.update(sql, user.getName(), user.getGender(),
-                                user.getAge(), user.getAddress(),
-                                    user.getQq(), user.getEmail());
+                user.getAge(), user.getAddress(),
+                user.getQq(), user.getEmail());
     }
 
     @Override
@@ -38,7 +36,7 @@ public class UserDaoImpl implements UserDao {
     public void update(User user) {
         String sql = "update user set gender = ?, age = ?, address = ? , qq = ?, email = ? where id = ?";
         template.update(sql, user.getGender(), user.getAge(), user.getAddress(),
-                                user.getQq(), user.getEmail(), user.getId());
+                user.getQq(), user.getEmail(), user.getId());
     }
 
     @Override
@@ -51,9 +49,9 @@ public class UserDaoImpl implements UserDao {
     public User login(String username, String password) {
         String sql = "select * from user where username = ? and password = ?";
         User user = null;
-        try{
-             user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), username, password);
-        }catch (Exception e){
+        try {
+            user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), username, password);
+        } catch (Exception e) {
             return null;
         }
         return user;
@@ -66,18 +64,46 @@ public class UserDaoImpl implements UserDao {
         ArrayList<Object> list = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         sb.append(sql);
-        for (String key: keySet){
-            if (!"currentPage".equals(key) && !"pageCount".equals(key)){
+        for (String key : keySet) {
+            if ("currentPage".equals(key) || "rows".equals(key)) {
                 continue;
             }
-            String strings = map.get(key)[0];
-            sb.append("and username like ? ");
+            if ("name".equals(key) || "address".equals(key) || "email".equals(key)) {
+                String strings = map.get(key)[0];
+                if (strings != null && !"".equals(strings)) {
+                    sb.append(" and " + key + " like ? ");
+                    list.add("%" + strings + "%");
+                }
+            }
         }
-        return 0;
+        System.out.println(sb.toString());
+        return template.queryForObject(sb.toString(), Integer.class, list.toArray());
     }
 
     @Override
     public List<User> findPageAll(int start, int row, Map<String, String[]> map) {
-        return null;
+        String sql = "select * from user where 1 = 1 ";
+        StringBuilder sb = new StringBuilder();
+        Set<String> keySet = map.keySet();
+        sb.append(sql);
+        ArrayList<Object> list = new ArrayList<>();
+        for (String key : keySet) {
+            if ("currentPage".equals(key) || "rows".equals(key)) {
+                continue;
+            }
+            if ("name".equals(key) || "address".equals(key) || "email".equals(key)) {
+                String strings = map.get(key)[0];
+                if (strings != null && !"".equals(strings)) {
+                    sb.append(" and " + key + " like ? ");
+                    list.add("%" + strings + "%");
+                }
+            }
+        }
+        sb.append(" limit ? , ?");
+        System.out.println(sb.toString());
+        System.out.println(Arrays.toString(list.toArray()) + "" + start + row);
+        list.add(start);
+        list.add(row);
+        return template.query(sb.toString(), new BeanPropertyRowMapper<User>(User.class), list.toArray());
     }
 }

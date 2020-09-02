@@ -1,8 +1,10 @@
 package user_case.service;
 
+import user_case.domain.BeanPage;
 import user_case.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户管理业务接口
@@ -23,5 +25,7 @@ public interface UserService {
     User login(User user);
 
     void checkedDelete(String[] values);
+
+    BeanPage<User>  findUserByPage(String start, String row, Map<String, String[]> map);
 
 }
