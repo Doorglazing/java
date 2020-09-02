@@ -96,7 +96,7 @@
         <a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>
 
     </div>
-    <form id="form" action="" method="post">
+    <form id="form" action="/deleteUserServlet" method="post">
         <table border="1" class="table table-bordered table-hover">
             <tr class="success">
                 <th><input type="checkbox" id="firstCb"></th>

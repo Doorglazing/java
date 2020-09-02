@@ -39,4 +39,11 @@ public class UserServiceImpl implements UserService {
     public User login(User user) {
         return userDao.login(user.getUsername(), user.getPassword());
     }
+
+    @Override
+    public void checkedDelete(String[] values) {
+        for(String id: values){
+            userDao.delete(Integer.parseInt(id));
+        }
+    }
 }

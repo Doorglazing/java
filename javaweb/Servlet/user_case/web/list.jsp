@@ -75,7 +75,7 @@
         <form class="form-inline" action="${pageContext.request.contextPath}/userListServlet" method="post">
             <div class="form-group">
                 <label for="exampleInputName2">姓名</label>
-                <input type="text" name="name" value="" class="form-control" id="exampleInputName2" >
+                <input type="text" name="username" value="" class="form-control" id="exampleInputName2" >
             </div>
             <div class="form-group">
                 <label for="exampleInputName3">籍贯</label>
@@ -88,7 +88,6 @@
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>
-
     </div>
 
     <div style="float: right;margin: 5px;">
@@ -96,7 +95,7 @@
         <a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>
 
     </div>
-    <form id="form" action="" method="post">
+    <form id="form" action="/deleteUserServlet" method="post">
         <table border="1" class="table table-bordered table-hover">
             <tr class="success">
                 <th><input type="checkbox" id="firstCb"></th>

@@ -6,7 +6,10 @@ import user_case.dao.UserDao;
 import user_case.domain.User;
 import user_case.util.JDBCUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class UserDaoImpl implements UserDao {
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
@@ -54,5 +57,27 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
         return user;
+    }
+
+    @Override
+    public int selectTotalCount(Map<String, String[]> map) {
+        String sql = "select count(*) from user where 1 = 1 ";
+        Set<String> keySet = map.keySet();
+        ArrayList<Object> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append(sql);
+        for (String key: keySet){
+            if (!"currentPage".equals(key) && !"pageCount".equals(key)){
+                continue;
+            }
+            String strings = map.get(key)[0];
+            sb.append("and username like ? ");
+        }
+        return 0;
+    }
+
+    @Override
+    public List<User> findPageAll(int start, int row, Map<String, String[]> map) {
+        return null;
     }
 }

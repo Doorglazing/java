@@ -21,4 +21,7 @@ public interface UserService {
     User findUserById(String id);
 
     User login(User user);
+
+    void checkedDelete(String[] values);
+
 }
