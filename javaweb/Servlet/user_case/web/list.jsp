@@ -179,12 +179,12 @@
             </ul>
         </nav>
     </div>
-    <%
-        HttpSession session1 = request.getSession();
-        session1.setAttribute("name", request.getParameter("name"));
-        session1.setAttribute("address", request.getParameter("address"));
-        session1.setAttribute("email", request.getParameter("email"));
-    %>
+<%--    <%--%>
+<%--        HttpSession session1 = request.getSession();--%>
+<%--        session1.setAttribute("name", request.getParameter("name"));--%>
+<%--        session1.setAttribute("address", request.getParameter("address"));--%>
+<%--        session1.setAttribute("email", request.getParameter("email"));--%>
+<%--    %>--%>
 </div>
 </body>
 </html>
