@@ -11,6 +11,12 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <form method="post" action="/ele">
+    账号:<input type="text" name="uname">
+    <br>
+    密码:<input type="password" name="password"><br>
+    <input type="submit" value="登陆">
+  </form>
+  ${sessionScope.success}
   </body>
 </html>
